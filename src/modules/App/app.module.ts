@@ -1,9 +1,10 @@
 import 'dotenv/config';
 import { Module } from '@nestjs/common';
-import { AppController } from 'src/Modules/App/app.controller';
-import { AppService } from 'src/Modules/App/app.service';
+import { AppController } from 'src/modules/App/app.controller';
+import { AppService } from 'src/modules/App/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { GamesEntity } from 'src/modules/Games/entities/games.entity';
+import { GamesModule } from 'src/modules/Games/games.module';
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true, // Set to false in production
     }),
+    TypeOrmModule.forFeature([GamesEntity]),
+    GamesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
