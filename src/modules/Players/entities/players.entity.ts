@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany } from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany} from 'typeorm';
 import { AuditEntity } from 'src/helpers/customBaseEntites/AuditEntity';
 import { GamesEntity } from 'src/modules/Games/entities/games.entity';
 
@@ -17,5 +17,6 @@ export class PlayersEntity extends AuditEntity {
   dob: Date;
 
   @ManyToMany(() => GamesEntity, (game) => game.players)
-  gamesPlayed: GamesEntity[];
+  @JoinTable()
+  games_played: GamesEntity[];
 }

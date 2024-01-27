@@ -45,9 +45,11 @@ export class PlayersService implements IPlayersService {
       throw new BadRequestException('Invalid UUID format');
     }
 
-    const player = await this.playersRepository.findOneBy({
-      uuid: playerUuid,
-    });
+    const player = await this.playersRepository
+      .createQueryBuilder('player')
+      .leftJoinAndSelect('player.games_played', 'games_played')
+      .where('player.uuid = :uuid', { uuid: playerUuid })
+      .getOne();
 
     if (player) {
       return player;
@@ -97,9 +99,10 @@ export class PlayersService implements IPlayersService {
 
   async getAllPlayers(page?: number, limit?: number, search?: string) {
     if (!page || !limit) {
-      let query = this.playersRepository.createQueryBuilder('player');
+      let query = await this.playersRepository
+        .createQueryBuilder('player')
+        .leftJoinAndSelect('player.games_played', 'games_played');
 
-      // TODO: Update once new fields added
       if (search) {
         query = query.where(
           'player.first_name LIKE :search OR player.last_name LIKE :search',
@@ -112,9 +115,10 @@ export class PlayersService implements IPlayersService {
       return await query.getMany();
     }
 
-    const query = this.playersRepository.createQueryBuilder('player');
+    const query = await this.playersRepository
+      .createQueryBuilder('player')
+      .leftJoinAndSelect('player.games_played', 'games_played');
 
-    // TODO: Update once new fields added
     if (search) {
       query.where(
         'player.first_name LIKE :search OR player.last_name LIKE :search',

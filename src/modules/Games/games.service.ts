@@ -36,9 +36,11 @@ export class GamesService implements IGamesService {
       throw new BadRequestException('Invalid UUID format');
     }
 
-    const game = await this.gamesRepository.findOneBy({
-      uuid: gameUuid,
-    });
+    const game = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.players', 'players')
+      .where('game.uuid = :uuid', { uuid: gameUuid })
+      .getOne();
 
     if (game) {
       return game;
@@ -88,9 +90,10 @@ export class GamesService implements IGamesService {
 
   async getAllGames(page?: number, limit?: number, search?: string) {
     if (!page || !limit) {
-      let query = this.gamesRepository.createQueryBuilder('game');
+      let query = await this.gamesRepository
+        .createQueryBuilder('game')
+        .leftJoinAndSelect('game.players', 'players');
 
-      // TODO: Update once new fields added
       if (search) {
         query = query.where('game.title LIKE :search', {
           search: `${search}%`,
@@ -100,9 +103,10 @@ export class GamesService implements IGamesService {
       return await query.getMany();
     }
 
-    const query = this.gamesRepository.createQueryBuilder('game');
+    const query = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.players', 'players');
 
-    // TODO: Update once new fields added
     if (search) {
       query.where('game.title LIKE :search', {
         search: `${search}%`,

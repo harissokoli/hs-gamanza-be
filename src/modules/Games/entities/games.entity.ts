@@ -10,7 +10,7 @@ export class GamesEntity extends AuditEntity {
   @Column()
   description: string;
 
-  @ManyToMany(() => PlayersEntity)
+  @ManyToMany(() => PlayersEntity, (player) => player.games_played)
   @JoinTable()
   players: PlayersEntity[];
 }
