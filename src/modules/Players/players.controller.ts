@@ -68,4 +68,20 @@ export class PlayersController implements IPlayersController {
   ) {
     return await this.playersService.getAllPlayers(page, limit, search);
   }
+
+  @Post('play/:playerUuid/game/:gameUuid')
+  async addPlayerToGame(
+    @Param('playerUuid') playerUuid: string,
+    @Param('gameUuid') gameUuid: string,
+  ) {
+    return await this.playersService.addPlayerToGame(playerUuid, gameUuid);
+  }
+
+  @Delete('play/:playerUuid/game/:gameUuid')
+  async removePlayerFromGame(
+    @Param('playerUuid') playerUuid: string,
+    @Param('gameUuid') gameUuid: string,
+  ) {
+    return await this.playersService.removePlayerFromGame(playerUuid, gameUuid);
+  }
 }

@@ -14,4 +14,6 @@ export interface IPlayersController {
     limit?: number,
     search?: string,
   ): Promise<PlayersEntity[] | PaginatedResponse<PlayersEntity>>;
+  addPlayerToGame(playerUuid: string, gameUuid: string): Promise<void>;
+  removePlayerFromGame(playerUuid: string, gameUuid: string): Promise<void>;
 }

@@ -10,12 +10,16 @@ import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
 import { PlayersRepository } from 'src/modules/Players/repositories/players.repository';
 import { CreatePlayerDto } from 'src/modules/Players/dtos/CreatePlayer.dto';
 import { checkEmailValidity } from 'src/helpers/checkEmailValidity';
+import { GamesEntity } from 'src/modules/Games/entities/games.entity';
+import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
 
 @Injectable()
 export class PlayersService implements IPlayersService {
   constructor(
     @InjectRepository(PlayersEntity)
     private playersRepository: PlayersRepository,
+    @InjectRepository(GamesEntity)
+    private gamesRepository: GamesRepository,
   ) {}
 
   async create(player: CreatePlayerDto) {
@@ -138,5 +142,65 @@ export class PlayersService implements IPlayersService {
       page: Number(page),
       last_page: Math.ceil(total / limit),
     };
+  }
+
+  async addPlayerToGame(playerUuid: string, gameUuid: string) {
+    if (!uuidValidate(playerUuid)) {
+      throw new BadRequestException('Invalid UUID format');
+    }
+    if (!uuidValidate(gameUuid)) {
+      throw new BadRequestException('Invalid UUID format');
+    }
+
+    const player = await this.playersRepository.findOneBy({ uuid: playerUuid });
+    const game = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.players', 'players')
+      .where('game.uuid = :uuid', { uuid: gameUuid })
+      .getOne();
+
+    const playerAlreadyExists = game.players.some(
+      (existingPlayer) => existingPlayer.id === player.id,
+    );
+
+    if (!playerAlreadyExists) {
+      await this.gamesRepository
+        .createQueryBuilder()
+        .relation(GamesEntity, 'players')
+        .of(game)
+        .add(player);
+    } else {
+      throw new BadRequestException('This player is already playing this game');
+    }
+  }
+
+  async removePlayerFromGame(playerUuid: string, gameUuid: string) {
+    if (!uuidValidate(playerUuid)) {
+      throw new BadRequestException('Invalid UUID format');
+    }
+    if (!uuidValidate(gameUuid)) {
+      throw new BadRequestException('Invalid UUID format');
+    }
+
+    const player = await this.playersRepository.findOneBy({ uuid: playerUuid });
+    const game = await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.players', 'players')
+      .where('game.uuid = :uuid', { uuid: gameUuid })
+      .getOne();
+
+    const playerExists = game.players.some(
+      (existingPlayer) => existingPlayer.id === player.id,
+    );
+
+    if (playerExists) {
+      await this.gamesRepository
+        .createQueryBuilder()
+        .relation(GamesEntity, 'players')
+        .of(game)
+        .remove(player);
+    } else {
+      throw new BadRequestException(`This player isn't playing this game`);
+    }
   }
 }
