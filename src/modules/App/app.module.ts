@@ -5,6 +5,8 @@ import { AppService } from 'src/modules/App/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GamesEntity } from 'src/modules/Games/entities/games.entity';
 import { GamesModule } from 'src/modules/Games/games.module';
+import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
+import { PlayersModule } from 'src/modules/Players/players.module';
 
 @Module({
   imports: [
@@ -18,8 +20,9 @@ import { GamesModule } from 'src/modules/Games/games.module';
       autoLoadEntities: true,
       synchronize: true, // Set to false in production
     }),
-    TypeOrmModule.forFeature([GamesEntity]),
+    TypeOrmModule.forFeature([GamesEntity, PlayersEntity]),
     GamesModule,
+    PlayersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

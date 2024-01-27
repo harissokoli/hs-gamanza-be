@@ -15,7 +15,7 @@ import { CreateGameDto } from 'src/modules/Games/dtos/CreateGame.dto';
 import { IGamesController } from 'src/modules/Games/interfaces/games.controller.interface';
 
 @Controller('games')
-@ApiTags('Games')
+@ApiTags('Casino Games')
 export class GamesController implements IGamesController {
   constructor(private readonly gamesService: GamesService) {}
 

@@ -1,13 +1,16 @@
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { AuditEntity } from 'src/helpers/customBaseEntites/AuditEntity';
+import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
 
 @Entity('games')
 export class GamesEntity extends AuditEntity {
-  @Column({ nullable: true })
+  @Column()
   title: string;
 
-  @Column({ nullable: true })
+  @Column()
   description: string;
 
-  // @Index({ unique: true })
+  @ManyToMany(() => PlayersEntity)
+  @JoinTable()
+  players: PlayersEntity[];
 }

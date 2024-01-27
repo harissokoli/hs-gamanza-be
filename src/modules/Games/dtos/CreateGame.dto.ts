@@ -7,4 +7,10 @@ export class CreateGameDto {
   @IsString()
   @MinLength(3)
   title: string;
+
+  @ApiProperty({ description: 'Description of the game' })
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  description: string;
 }
