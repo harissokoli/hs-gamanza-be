@@ -39,3 +39,9 @@ $ docker-compose build
 ```bash
 $ docker-compose up
 ```
+
+## Running the tests
+
+```bash
+$ npm run test
+```
