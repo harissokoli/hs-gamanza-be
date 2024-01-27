@@ -1,5 +1,5 @@
-import { CreatePlayerDto } from 'src/modules/Players/dtos/CreatePlayer.dto';
-import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
+import { CreatePlayerDto } from '@modules/Players/dtos/CreatePlayer.dto';
+import { PlayersEntity } from '@modules/Players/entities/players.entity';
 
 export interface IPlayersService {
   create(player: CreatePlayerDto): Promise<PlayersEntity>;

@@ -1,5 +1,5 @@
-import { CreateGameDto } from 'src/modules/Games/dtos/CreateGame.dto';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
+import { CreateGameDto } from '@modules/Games/dtos/CreateGame.dto';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
 
 export interface IGamesController {
   createGame(createGameDto: CreateGameDto): Promise<GamesEntity>;

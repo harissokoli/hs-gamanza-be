@@ -4,11 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { validate as uuidValidate } from 'uuid';
-import { IGamesService } from 'src/modules/Games/interfaces/games.service.interface';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
-import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
+import { IGamesService } from '@modules/Games/interfaces/games.service.interface';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
+import { GamesRepository } from '@modules/Games/repositories/games.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateGameDto } from 'src/modules/Games/dtos/CreateGame.dto';
+import { CreateGameDto } from '@modules/Games/dtos/CreateGame.dto';
 
 @Injectable()
 export class GamesService implements IGamesService {

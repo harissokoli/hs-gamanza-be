@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from 'src/modules/App/app.module';
-import { GlobalSeederService } from 'src/modules/Seeder/global-seeder.service';
+import { AppModule } from '@modules/App/app.module';
+import { GlobalSeederService } from '@modules/Seeder/global-seeder.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

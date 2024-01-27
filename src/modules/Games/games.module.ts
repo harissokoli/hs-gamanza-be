@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { GamesController } from 'src/modules/Games/games.controller';
-import { GamesService } from 'src/modules/Games/games.service';
-import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
+import { GamesController } from '@modules/Games/games.controller';
+import { GamesService } from '@modules/Games/games.service';
+import { GamesRepository } from '@modules/Games/repositories/games.repository';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomRepositoryModule } from 'src/helpers/CustomRepository.module';
+import { CustomRepositoryModule } from '@helpers//CustomRepository.module';
 
 @Module({
   imports: [

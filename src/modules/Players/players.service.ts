@@ -5,13 +5,13 @@ import {
 } from '@nestjs/common';
 import { validate as uuidValidate } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IPlayersService } from 'src/modules/Players/interfaces/players.service.interface';
-import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
-import { PlayersRepository } from 'src/modules/Players/repositories/players.repository';
-import { CreatePlayerDto } from 'src/modules/Players/dtos/CreatePlayer.dto';
-import { checkEmailValidity } from 'src/helpers/checkEmailValidity';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
-import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
+import { IPlayersService } from '@modules/Players/interfaces/players.service.interface';
+import { PlayersEntity } from '@modules/Players/entities/players.entity';
+import { PlayersRepository } from '@modules/Players/repositories/players.repository';
+import { CreatePlayerDto } from '@modules/Players/dtos/CreatePlayer.dto';
+import { checkEmailValidity } from '@helpers//checkEmailValidity';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
+import { GamesRepository } from '@modules/Games/repositories/games.repository';
 
 @Injectable()
 export class PlayersService implements IPlayersService {

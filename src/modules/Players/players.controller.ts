@@ -10,9 +10,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { PlayersService } from 'src/modules/Players/players.service';
-import { IPlayersController } from 'src/modules/Players/interfaces/players.controller.interface';
-import { CreatePlayerDto } from 'src/modules/Players/dtos/CreatePlayer.dto';
+import { PlayersService } from '@modules/Players/players.service';
+import { IPlayersController } from '@modules/Players/interfaces/players.controller.interface';
+import { CreatePlayerDto } from '@modules/Players/dtos/CreatePlayer.dto';
 
 @Controller('players')
 @ApiTags('Casino Players')

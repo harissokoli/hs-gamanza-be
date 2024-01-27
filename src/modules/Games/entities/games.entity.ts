@@ -1,6 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
-import { AuditEntity } from 'src/helpers/customBaseEntites/AuditEntity';
-import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
+import { AuditEntity } from '@helpers/customBaseEntites/AuditEntity';
+import { PlayersEntity } from '@modules/Players/entities/players.entity';
 
 @Entity('games')
 export class GamesEntity extends AuditEntity {

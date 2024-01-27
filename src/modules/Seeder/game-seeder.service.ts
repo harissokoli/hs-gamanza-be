@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
+import { GamesRepository } from '@modules/Games/repositories/games.repository';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
 
 @Injectable()
 export class GameSeederService {

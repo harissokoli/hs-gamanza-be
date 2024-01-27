@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { GameSeederService } from 'src/modules/Seeder/game-seeder.service';
-import { PlayerSeederService } from 'src/modules/Seeder/player-seeder.service';
+import { GameSeederService } from '@modules/Seeder/game-seeder.service';
+import { PlayerSeederService } from '@modules/Seeder/player-seeder.service';
 
 @Injectable()
 export class GlobalSeederService {

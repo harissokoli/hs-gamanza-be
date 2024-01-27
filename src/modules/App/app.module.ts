@@ -1,18 +1,15 @@
 import 'dotenv/config';
 import { Module } from '@nestjs/common';
-import { AppController } from 'src/modules/App/app.controller';
-import { AppService } from 'src/modules/App/app.service';
+import { AppController } from '@modules/App/app.controller';
+import { AppService } from '@modules/App/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GamesEntity } from 'src/modules/Games/entities/games.entity';
-import { GamesModule } from 'src/modules/Games/games.module';
-import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
-import { PlayersModule } from 'src/modules/Players/players.module';
-import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
-import { PlayersRepository } from 'src/modules/Players/repositories/players.repository';
-import { CustomRepositoryModule } from 'src/helpers/CustomRepository.module';
-import { GlobalSeederService } from 'src/modules/Seeder/global-seeder.service';
-import { PlayerSeederService } from 'src/modules/Seeder/player-seeder.service';
-import { GameSeederService } from 'src/modules/Seeder/game-seeder.service';
+import { GamesEntity } from '@modules/Games/entities/games.entity';
+import { GamesModule } from '@modules/Games/games.module';
+import { PlayersEntity } from '@modules/Players/entities/players.entity';
+import { PlayersModule } from '@modules/Players/players.module';
+import { GlobalSeederService } from '@modules/Seeder/global-seeder.service';
+import { PlayerSeederService } from '@modules/Seeder/player-seeder.service';
+import { GameSeederService } from '@modules/Seeder/game-seeder.service';
 
 @Module({
   imports: [

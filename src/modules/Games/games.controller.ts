@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { GamesService } from './games.service';
-import { CreateGameDto } from 'src/modules/Games/dtos/CreateGame.dto';
-import { IGamesController } from 'src/modules/Games/interfaces/games.controller.interface';
+import { CreateGameDto } from '@modules/Games/dtos/CreateGame.dto';
+import { IGamesController } from '@modules/Games/interfaces/games.controller.interface';
 
 @Controller('games')
 @ApiTags('Casino Games')
