@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from 'src/modules/App/app.module';
+import { GlobalSeederService } from 'src/modules/Seeder/global-seeder.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  const globalSeeder = app.get(GlobalSeederService);
+  await globalSeeder.seedAll();
 
   await app.listen(3000);
 }

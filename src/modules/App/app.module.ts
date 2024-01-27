@@ -7,6 +7,12 @@ import { GamesEntity } from 'src/modules/Games/entities/games.entity';
 import { GamesModule } from 'src/modules/Games/games.module';
 import { PlayersEntity } from 'src/modules/Players/entities/players.entity';
 import { PlayersModule } from 'src/modules/Players/players.module';
+import { GamesRepository } from 'src/modules/Games/repositories/games.repository';
+import { PlayersRepository } from 'src/modules/Players/repositories/players.repository';
+import { CustomRepositoryModule } from 'src/helpers/CustomRepository.module';
+import { GlobalSeederService } from 'src/modules/Seeder/global-seeder.service';
+import { PlayerSeederService } from 'src/modules/Seeder/player-seeder.service';
+import { GameSeederService } from 'src/modules/Seeder/game-seeder.service';
 
 @Module({
   imports: [
@@ -25,6 +31,11 @@ import { PlayersModule } from 'src/modules/Players/players.module';
     PlayersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    PlayerSeederService,
+    GameSeederService,
+    GlobalSeederService,
+  ],
 })
 export class AppModule {}
