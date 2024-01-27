@@ -17,7 +17,7 @@ export class GamesService implements IGamesService {
     private gamesRepository: GamesRepository,
   ) {}
 
-  async create(game: CreateGameDto): Promise<GamesEntity> {
+  async create(game: CreateGameDto) {
     const isExisting = await this.gamesRepository.findOneBy({
       title: game.title,
     });
@@ -31,7 +31,7 @@ export class GamesService implements IGamesService {
     throw new BadRequestException(`Game: "${game.title}" already exists!`);
   }
 
-  async get(gameUuid: string): Promise<GamesEntity> {
+  async get(gameUuid: string) {
     if (!uuidValidate(gameUuid)) {
       throw new BadRequestException('Invalid UUID format');
     }
@@ -47,10 +47,7 @@ export class GamesService implements IGamesService {
     throw new NotFoundException(`Game with UUID: ${gameUuid} not found`);
   }
 
-  async update(
-    gameUuid: string,
-    gameUpdateDto: CreateGameDto,
-  ): Promise<GamesEntity> {
+  async update(gameUuid: string, gameUpdateDto: CreateGameDto) {
     if (!uuidValidate(gameUuid)) {
       throw new BadRequestException('Invalid UUID format');
     }
@@ -70,7 +67,7 @@ export class GamesService implements IGamesService {
     });
   }
 
-  async delete(gameUuid: string): Promise<void> {
+  async delete(gameUuid: string) {
     if (!uuidValidate(gameUuid)) {
       throw new BadRequestException('Invalid UUID format');
     }
@@ -87,5 +84,40 @@ export class GamesService implements IGamesService {
     if (deleteResult.affected === 0) {
       throw new NotFoundException(`Game with UUID: ${gameUuid} not found`);
     }
+  }
+
+  async getAllGames(page?: number, limit?: number, search?: string) {
+    if (!page || !limit) {
+      let query = this.gamesRepository.createQueryBuilder('game');
+
+      // TODO: Update once new fields added
+      if (search) {
+        query = query.where('game.title LIKE :search', {
+          search: `${search}%`,
+        });
+      }
+
+      return await query.getMany();
+    }
+
+    const query = this.gamesRepository.createQueryBuilder('game');
+
+    // TODO: Update once new fields added
+    if (search) {
+      query.where('game.title LIKE :search', {
+        search: `${search}%`,
+      });
+    }
+
+    query.skip((page - 1) * limit).take(limit);
+
+    const [results, total] = await query.getManyAndCount();
+
+    return {
+      data: results,
+      total,
+      page: Number(page),
+      last_page: Math.ceil(total / limit),
+    };
   }
 }

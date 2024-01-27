@@ -9,4 +9,9 @@ export interface IGamesController {
     updateGameDto: CreateGameDto,
   ): Promise<GamesEntity>;
   deleteGame(gameUuid: string): Promise<void>;
+  getAllGames(
+    page?: number,
+    limit?: number,
+    search?: string,
+  ): Promise<GamesEntity[] | PaginatedResponse<GamesEntity>>;
 }

@@ -7,8 +7,9 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { GamesService } from './games.service';
 import { CreateGameDto } from 'src/modules/Games/dtos/CreateGame.dto';
 import { IGamesController } from 'src/modules/Games/interfaces/games.controller.interface';
@@ -39,5 +40,32 @@ export class GamesController implements IGamesController {
   @Delete(':uuid')
   async deleteGame(@Param('uuid', ParseUUIDPipe) gameUuid: string) {
     return await this.gamesService.delete(gameUuid);
+  }
+
+  @Get()
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number for pagination',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page for pagination',
+  })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    type: String,
+    description: 'Search to filter games',
+  })
+  async getAllGames(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('search') search?: string,
+  ) {
+    return await this.gamesService.getAllGames(page, limit, search);
   }
 }
